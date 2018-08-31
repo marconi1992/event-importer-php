@@ -1,0 +1,23 @@
+version: '3'
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - ./:/app
+      - ./docker/proxy/conf.d:/etc/nginx/conf.d
+  php:
+    build: ./docker/php
+    volumes:
+      - ./:/app
+    entrypoint:
+      - php
+      - /app/bootstrap/server.php
+    links:
+      - mongo:mongo
+      - redis:redis
+  mongo:
+    image: mongo:latest
+  redis:
+    image: redis:latest
