@@ -7,6 +7,8 @@ services:
     volumes:
       - ./:/app
       - ./docker/proxy/conf.d:/etc/nginx/conf.d
+    links:
+      - php:php
   php:
     build: ./docker/php
     volumes:
